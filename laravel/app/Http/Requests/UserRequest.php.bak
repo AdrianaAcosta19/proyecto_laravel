@@ -1,0 +1,49 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class UserRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            'fullname'  => 'required|min:10',
+            'email'     => 'required|email|unique:users',
+            'phone'     => 'required|regex:/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/',
+            'birthdate' => 'required|date',
+            'gender'    => 'required',
+            'address'   => 'required|min:5',
+            'photo'     => 'required|file|max:1000',
+            'password'  => 'required|regex:^(?=.{10,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$|confirmed'
+        ];
+    }
+
+    public function messages(){
+        return [
+            'fullname.required' => 'El campo Nombre Completo es obligatorio.',
+            'fullname.min'      => 'El campo Nombre Completo debe contener al menos :min caracteres.',
+            'email.required'    => 'El campo Correo Electrónico es obligatorio.',
+            'email.unique'      => 'El campo Correo Electrónico ya esta en uso.',
+            'email.email'       => 'El campo Correo Electrónico debe ser una direccion de correo valida.',
+            'phone.required'    => 'El campo ',
+            'photo.max'         => 'prueba david'
+        ];
+    }
+}

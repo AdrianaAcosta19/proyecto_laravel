@@ -1,0 +1,16 @@
+.btn-indigo {
+	color: #fff;
+	background-color: #6574cd;
+}
+.btn-indigo:hover {
+	color: #fff;
+	background-color: #515caa;
+}
+
+.bg-indigo {
+	background-color: #6574cd;
+}
+
+.pagination {
+	justify-content: center;
+}
