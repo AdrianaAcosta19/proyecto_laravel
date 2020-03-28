@@ -52,6 +52,31 @@
                             @enderror
                         </div>
 
+                         <div class="form-group">
+                            <label for="user" class="text-md-right">Usuario</label>
+
+                             <input id="user" type="text" class="form-control @error('user') is-invalid @enderror" name="user" value="{{ $user->fullname }}" autocomplete="user" autofocus disabled="true">
+                     
+                        </div>
+
+                        <div class="form-group">
+                            <label for="category" class="text-md-right">Catergoria</label>
+
+                            <select name="category" id="category" class="form-control @error('category') is-invalid @enderror">
+                                <option value="">Seleccione...</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}" @if (old('category', $category->category_id) == $category->id) selected @endif>{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+
+                            @error('category')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+
                         <div class="form-group">
                             <label for="image" class="text-md-right">Imagen</label>
 

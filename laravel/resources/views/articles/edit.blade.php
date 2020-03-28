@@ -48,18 +48,7 @@
                         <div class="form-group">
                             <label for="user" class="text-md-right">Usuario</label>
 
-                            <select name="user" id="user" class="form-control @error('user') is-invalid @enderror">
-                                <option value="">Seleccione...</option>
-                                @foreach ($users as $user)
-                                    <option value="{{ $user->id }}" @if (old('user', $article->user_id) == $user->id) selected @endif>{{ $user->fullname }}</option>
-                                @endforeach
-                            </select>
-
-                            @error('user')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                            <input id="user" type="text" class="form-control @error('user') is-invalid @enderror" name="user" value="{{ $user->fullname }}" autocomplete="user" autofocus disabled="true">
                         </div>
 
                         <div class="form-group">

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Article;
 use App\Category;
 use App\User;
+use Auth;
 use App\Http\Requests\ArticleRequest;
 use App\Exports\ArticlesExport;
 
@@ -32,7 +33,9 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('articles.create');
+        $user       = Auth::user();
+        $categories = Category::all();
+        return view('articles.create')->with('user', $user)->with('categories', $categories);
     }
 
     /**
@@ -43,9 +46,11 @@ class ArticleController extends Controller
      */
     public function store(ArticleRequest $request)
     {
-        $article               = new article;
-        $article->name         = $request->name;
-        $article->description  = $request->description;
+        $article                = new article;
+        $article->name          = $request->name;
+        $article->description   = $request->description;
+        $article->user_id       = Auth::user()->id;
+        $article->category_id   = $request->category;
         if ($request->hasFile('image')) {
             $file = time().'.'.$request->image->extension();
             $request->image->move(public_path('imgs'), $file);
@@ -66,8 +71,8 @@ class ArticleController extends Controller
     public function show($id)
     {
         $article    = Article::find($id);
-        $user       = User::find($id);
-        $category   = Category::find($id);
+        $user       = Auth::user();
+        $category   = Category::find($article->category_id);
         return view('articles.show')->with('article', $article)->with('user', $user)->with('category', $category);
     }
 
@@ -80,9 +85,9 @@ class ArticleController extends Controller
     public function edit($id)
     {
         $article    = Article::find($id);
-        $users      = User::all();
+        $user       = Auth::user();
         $categories = Category::all();
-        return view('articles.edit')->with('article', $article)->with('users', $users)->with('categories', $categories);
+        return view('articles.edit')->with('article', $article)->with('user', $user)->with('categories', $categories);
     }
 
     /**
@@ -97,7 +102,7 @@ class ArticleController extends Controller
         $article                = Article::find($id);
         $article->name          = $request->name;
         $article->description   = $request->description;
-        $article->user_id       = $request->user;
+        $article->user_id       = Auth::user()->id;
         $article->category_id   = $request->category;
         if ($request->hasFile('image')) {
             $file = time().'.'.$request->image->extension();

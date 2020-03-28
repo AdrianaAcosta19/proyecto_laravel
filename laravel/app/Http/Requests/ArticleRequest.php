@@ -27,14 +27,12 @@ class ArticleRequest extends FormRequest
             return [
                 'name'        => 'required|min:10',
                 'description' => 'required|min:10',
-                'user'        => 'required',
                 'category'    => 'required'     
             ];
         } else {
              return [
             'name'          => 'required|min:10',
             'description'   => 'required|min:10',
-            'user'          => 'required',
             'category'      => 'required',
             'image'         => 'required|image|max:1000'
             ];
@@ -49,7 +47,6 @@ class ArticleRequest extends FormRequest
             'description.min'       => 'El campo Descripcion debe contener al menos :min caracteres',            
             'image.required'        => 'El campo Imagen es obligatorio.',
             'image.max'             => 'El campo Imagen no debe pesar más de :max KB.',
-            'user.required'         => 'El campo Usuario es obligatorio.',
             'category.required'     => 'El campo Categoria es obligatorio.'
         ];
     }
