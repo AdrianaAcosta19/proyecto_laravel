@@ -6,6 +6,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ Session::token() }}"> 
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -172,6 +173,23 @@
                 reader.readAsDataURL(this.files[0]);
             });
             // -----------------------------------------------
+
+            $('body').on('change', '#catid', function(event) {
+                    event.preventDefault();
+                    $cid    = $(this).val();
+                    $tk     = $('input[name=_token]').val();
+                    $.post('loadcat', {cid: $cid, _token: $tk}, function(data) {                    
+                    $("#content").hide();
+                        $(".loader").removeClass('d-none');
+                            setTimeout(function() {
+                                $(".loader").addClass('d-none');
+                                $("#content").fadeIn(1200).html(data);
+                        },1200);
+                    });
+            });
+
+
+
         });
     </script>
 </body>

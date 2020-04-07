@@ -25,14 +25,14 @@ class ArticleRequest extends FormRequest
     {
        if($this->method() == 'PUT') {
             return [
-                'name'        => 'required|min:10',
-                'description' => 'required|min:10',
+                'name'        => 'required|min:2',
+                'description' => 'required|min:2',
                 'category'    => 'required'     
             ];
         } else {
              return [
-            'name'          => 'required|min:10',
-            'description'   => 'required|min:10',
+            'name'          => 'required|min:2',
+            'description'   => 'required|min:2',
             'category'      => 'required',
             'image'         => 'required|image|max:1000'
             ];

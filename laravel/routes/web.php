@@ -14,6 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
 // Get: URL/URI
 Route::get('helloworld', function() {
 	return dd('Hola Mundo Laravel');
@@ -23,6 +24,7 @@ Route::get('helloworld', function() {
 Route::resource('users', 'UserController');
 Route::resource('categories', 'CatergoyController');
 Route::resource('articles', 'ArticleController');
+Route::resource('welcome', 'WelcomeController');
 
 // Reports
 Route::get('generate/pdf/users', 'UserController@pdf');
@@ -33,6 +35,8 @@ Route::get('generate/excel/categories', 'CatergoyController@excel');
 
 Route::get('generate/pdf/articles', 'ArticleController@pdf');
 Route::get('generate/excel/articles', 'ArticleController@excel');
+
+
 
 // Any: Cualquier solicitud (get/post/put/delete)
 Route::any('show/articles', function() {
@@ -53,4 +57,9 @@ Route::get('show/user/{id}', function($id) {
 
 Auth::routes();
 
+Route::post('loadcat', 'WelcomeController@loadcat');
+
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/', array('uses' => 'WelcomeController@index'));
+Route::get('/{category?}', array('uses' => 'WelcomeController@filter'));
