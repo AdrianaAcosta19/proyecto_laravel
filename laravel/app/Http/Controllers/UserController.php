@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Http\Requests\UserRequest;
 use App\Exports\UsersExport;
+use App\Imports\UsersImport;
+use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -20,7 +23,7 @@ class UserController extends Controller
     public function index()
     {
         //$users = User::all();
-        $users = User::paginate(8);
+        $users = User::paginate(7);
         return view('users.index')->with('users', $users);
     }
 
@@ -129,17 +132,27 @@ class UserController extends Controller
             return redirect('users')->with('message', 'El Usuario: '.$user->fullname.' ha sido eliminado');
        }
     }
-
     
-    public function pdf() {
+    public function pdf() 
+    {
         $users = User::all();
         $pdf = \PDF::loadView('users.pdf', compact('users'));
         return $pdf->download('users.pdf');
     }
 
-    public function excel() {
+    public function excel() 
+    {
         return \Excel::download(new UsersExport, 'users.xlsx');
     }
 
-
+    public function importExportView()
+    {
+        return view('users.import');
+    }
+   
+    public function import() 
+    {
+        \Excel::import(new UsersImport, request()->file('file'));
+        return redirect('users')->with('message', 'Los Usuarios han subido con exito');
+    }
 }

@@ -9,6 +9,10 @@
             <i class="fa fa-plus"></i> 
             Adicionar Usuario
           </a>
+          <a href="{{ url('import/view/users') }}" class="btn btn-success">
+            <i class="fa fa-plus"></i> 
+            Importar Usuarios
+          </a>
           <a href="{{ url('generate/pdf/users') }}" class="btn btn-indigo">
             <i class="fa fa-file-pdf"></i> 
             Generar Reporte

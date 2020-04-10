@@ -135,6 +135,7 @@
             });
 
             // -----------------------------------------------
+
             @if (session('message'))
                 Swal.fire(
                   'Felicitaciones',
@@ -142,7 +143,9 @@
                   'success'
                 );
             @endif
+
             // -----------------------------------------------
+
             $('.btn-upload').click(function(event) {
                 $('#photo').click();
             });
@@ -150,7 +153,13 @@
             $('.btn-upload-img').click(function(event) {
                 $('#image').click();
             });
+
+            $('.btn-excel').click(function(event) {
+                $('#file').click();
+            });
+
             // -----------------------------------------------
+
             $('#photo').change(function(e) {
                 var fileName = e.target.files[0].name;
                 $("#file").val(fileName);
@@ -162,6 +171,8 @@
                 reader.readAsDataURL(this.files[0]);
             });
 
+            // -----------------------------------------------
+
             $('#image').change(function(e) {
                 var fileName = e.target.files[0].name;
                 $("#file").val(fileName);
@@ -172,6 +183,25 @@
                 };
                 reader.readAsDataURL(this.files[0]);
             });
+
+            // -----------------------------------------------
+
+            $('#import').change(function(e) {
+                var fileName = e.target.files[0].name;
+                $("#file").val(fileName);
+
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#preview').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(this.files[0]);
+               
+            });
+
+            $("#file").change(function(){
+                $("#formImportar").submit();
+            });
+
             // -----------------------------------------------
 
             $('body').on('change', '#catid', function(event) {
@@ -188,8 +218,7 @@
                     });
             });
 
-
-
+            // -----------------------------------------------
         });
     </script>
 </body>

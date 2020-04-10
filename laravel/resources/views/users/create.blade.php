@@ -9,6 +9,14 @@
               Adicionar Usuario
             </h1>
             <hr>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url('home') }}">Inicio</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('users') }}">Lista de Usuarios</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Adicionar Usuario</a></li>
+                </ol>
+            </nav>
+
             @if($errors->any())
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">

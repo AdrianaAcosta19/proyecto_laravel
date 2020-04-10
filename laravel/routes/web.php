@@ -26,7 +26,11 @@ Route::resource('categories', 'CatergoyController');
 Route::resource('articles', 'ArticleController');
 Route::resource('welcome', 'WelcomeController');
 
-// Reports
+//Imports
+Route::get('import/view/users', 'UserController@importExportView');
+Route::post('import/excel/users', 'UserController@import')->name('import/excel/users');
+
+// Reports Export
 Route::get('generate/pdf/users', 'UserController@pdf');
 Route::get('generate/excel/users', 'UserController@excel');
 
