@@ -73,19 +73,23 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a href="{{ url('users') }}" class="dropdown-item">
-                                        <i class="fa fa-users"></i>
-                                        Módulo Usuarios
-                                    </a>
-                                    <a href="{{ url('categories') }}" class="dropdown-item">
-                                        <i class="fa fa-list"></i>
-                                        Módulo Categorías
-                                    </a>
-                                    <a href="{{ url('articles') }}" class="dropdown-item">
-                                        <i class="fa fa-newspaper"></i>
-                                        Módulo Artículos
-                                    </a>
-                                    <div class="dropdown-divider"></div>
+                                    
+                                    @if (Auth::user()->role == 'admin') 
+                                        <a href="{{ url('users') }}" class="dropdown-item">
+                                            <i class="fa fa-users"></i>
+                                            Módulo Usuarios
+                                        </a>
+                                        <a href="{{ url('categories') }}" class="dropdown-item">
+                                            <i class="fa fa-list"></i>
+                                            Módulo Categorías
+                                        </a>
+                                        <a href="{{ url('articles') }}" class="dropdown-item">
+                                            <i class="fa fa-newspaper"></i>
+                                            Módulo Artículos
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                    @endif
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
