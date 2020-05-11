@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="csrf-token" content="{{ Session::token() }}"> 
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title')</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -27,7 +27,7 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-indigo shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ config('app.name', 'My App') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -86,6 +86,18 @@
                                         <a href="{{ url('articles') }}" class="dropdown-item">
                                             <i class="fa fa-newspaper"></i>
                                             Módulo Artículos
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                    @endif
+
+                                    @if (Auth::user()->role == 'editar') 
+                                        <a href="{{ url('users/'.Auth::user()->id.'/edit') }}" class="dropdown-item">
+                                            <i class="fa fa-user"></i>
+                                            Mi Perfil
+                                        </a>
+                                        <a href="{{ url('articles') }}" class="dropdown-item">
+                                            <i class="fa fa-list"></i>
+                                            Mis Artículos
                                         </a>
                                         <div class="dropdown-divider"></div>
                                     @endif

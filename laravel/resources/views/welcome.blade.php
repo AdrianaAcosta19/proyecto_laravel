@@ -1,19 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-<script>
-    function filter(id)
-    {
-        //window.location.href = "{{ URL::action('WelcomeController@filter') }}" + "/" + id;
-    }  
-</script>
 
 <div class="container">
   <div class="row justify-content-around">
     <div class="form-group col-md-4 col-offset-4 text-center">
       <label>Filtrar por Categorias</label>
       @csrf
-      <select onchange="filter(this.value)" class="form-control" name="catid" id="catid">
+      <select class="form-control" name="catid" id="catid">
         <option value="">Seleccione</option>
         <option value="0">Todos</option>
         @foreach ($categoriesFil as $category)        

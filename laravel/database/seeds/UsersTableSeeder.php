@@ -20,11 +20,11 @@ class UsersTableSeeder extends Seeder
     	$usr->birthdate = '1992-04-28';
     	$usr->gender    = 'Male';
     	$usr->address   = 'Calle con Carrera';
-    	$usr->password  = bcrypt('admin');
+    	$usr->password  = bcrypt('12345');
     	$usr->role      = 'admin';
     	$usr->save();
 
 
-       factory(App\User::class, 20)->create();
+       factory(App\User::class, 300)->create();
     }
 }

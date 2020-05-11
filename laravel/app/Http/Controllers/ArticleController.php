@@ -21,8 +21,12 @@ class ArticleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $articles = Article::paginate(8);
+    {        
+        if(Auth::user()->role == 'admin') {
+            $articles = Article::paginate(8);            
+        } else if (Auth::user()->role == 'editar') {
+            $articles = Article::where('user_id', Auth::user()->id)->paginate(8);            
+        }
         return view('articles.index')->with('articles', $articles);
     }
 
@@ -131,11 +135,17 @@ class ArticleController extends Controller
 
     
     public function pdf() {
+        if(Auth::user()->role == 'admin') {
+            $articles = Article::paginate(8);            
+        } else if (Auth::user()->role == 'editar') {
+            $articles = Article::where('user_id', Auth::user()->id)->take(8)->get();            
+        }
+
         //$articles = Article::all();
         $pdf = \PDF::loadView('articles.pdf', [
             'users' => User::all(),
             'categories' => Category::all(),
-            'articles' => Article::all()
+            'articles' => $articles
         ]);
         return $pdf->download('articles.pdf');
     }

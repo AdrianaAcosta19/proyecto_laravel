@@ -5,17 +5,28 @@
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <h1 class="h3">
-              <i class="fa fa-pen"></i>
-              Modificar Usuario
+              @if (Auth::user()->role == 'admin') 
+                <i class="fa fa-pen"></i>
+                Modificar Usuario
+              @endif
+              @if (Auth::user()->role == 'editar')
+                <i class="fa fa-user"></i>
+                Mi Perfil
+              @endif
             </h1>
             <hr>
             <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ url('home') }}">Inicio</a></li>
-                            <li class="breadcrumb-item"><a href="{{ url('users') }}">Lista de Usuarios</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Modificar Usuario</a></li>
-                        </ol>
-                    </nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url('home') }}">Inicio</a></li>
+                    @if (Auth::user()->role == 'admin')
+                        <li class="breadcrumb-item"><a href="{{ url('users') }}">Lista de Usuarios</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Modificar Usuario</a></li>
+                    @endif
+                    @if (Auth::user()->role == 'editar')
+                        <li class="breadcrumb-item active" aria-current="page">Mi Perfil</a></li>
+                    @endif
+                </ol>
+            </nav>
 
             <form action="{{ url('users/'.$user->id) }}" method="post" enctype="multipart/form-data">
               @csrf
@@ -145,7 +156,7 @@
                         <div class="form-group">
                             <button type="submit" class="btn btn-indigo btn-block">
                                 <i class="fa fa-save"></i>
-                                Adicionar
+                                Modificar
                             </button>
                         </div>
             </form>

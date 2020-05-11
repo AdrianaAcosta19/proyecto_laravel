@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Vista de Articulos')
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -60,11 +62,13 @@
                     </tr>
                   @endforeach
                 </tbody>
-                <tfoot>
-                  <tr>
-                    <td colspan="4"><!--{{ $articles->links() }}--></td>
-                  </tr>
-                </tfoot>
+                @if (Auth::user()->role == 'admin') 
+                  <tfoot>
+                    <tr>
+                      <td colspan="4"><!--{{ $articles->links() }}--></td>
+                    </tr>
+                  </tfoot>
+                @endif
             </table>
             
         </div>     

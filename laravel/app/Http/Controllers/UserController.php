@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Auth;
 use App\User;
+use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Exports\UsersExport;
 use App\Imports\UsersImport;
@@ -114,9 +115,12 @@ class UserController extends Controller
         }
 
         if ($user->save()) {
-            return redirect('users')->with('message', 'El Usuario: '.$user->fullname.' fue Modificado con Exito!');
+            if(Auth::user()->role == 'admin') {
+                return redirect('users')->with('message', 'El Usuario: '.$user->fullname.' fue Modificado con Exito!');
+            } else if (Auth::user()->role == 'editar') {
+                return redirect('home')->with('message', 'Sus datos han sido modificados!');
+            }            
         }
-
     }
 
     /**
@@ -154,5 +158,5 @@ class UserController extends Controller
     {
         \Excel::import(new UsersImport, request()->file('file'));
         return redirect('users')->with('message', 'Los Usuarios han subido con exito');
-    }
+    }    
 }
